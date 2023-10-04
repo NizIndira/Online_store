@@ -1,0 +1,25 @@
+[
+  {
+    "fields": {
+      "name": "Офисная",
+      "description": "Мебель для офиса"
+    },
+    "model": "catalog.category",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "name": "Домашняя",
+      "description": "Мебель для дома"
+    },
+    "model": "catalog.category",
+    "pk": 2
+  },
+{
+    "fields": {
+      "name": "Дачная",
+      "description": "Мебель для дачи"
+    },
+    "model": "catalog.category",
+    "pk": 3
+  }]
