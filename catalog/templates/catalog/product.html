@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h2 class="card-title">{{ object.name }}</h2>
+            </div>
+            <div class="card-body">
+                <img src="{{ object.image|mediapath }}" alt="Card image cap" class="img-thumbnail">
+                <h5 class="font-weight-normal">{{ object.description }}</h5>
+                <h2 class="font-weight-normal">ЦЕНА: {{ object.price }} руб</h2>
+            </div>
+        </div>
+{% endblock %}

@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <h4 class="font-weight-normal">{{ object.description|slice:':100' }}</h4>
-                <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:products' object.pk %}">Смотреть каталог</a>
+                <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:category' object.pk %}">Смотреть каталог</a>
             </div>
         </div>
     </div>
