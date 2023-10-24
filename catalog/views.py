@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from catalog.forms import ProductForm
 from catalog.models import Category, Product
 
 class CategoryListView(ListView):
@@ -35,3 +37,16 @@ class ProductDetailView(DetailView):
         context_data = super().get_context_data(**kwargs)
         context_data['object_list'] = Product.objects.filter(category_id=self.kwargs.get('pk'))
         return context_data
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
+
