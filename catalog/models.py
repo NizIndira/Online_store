@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -32,3 +33,18 @@ class Product(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
         ordering = ('name',)
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    number = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Номер версии')
+    name = models.CharField(max_length=150, verbose_name='Наименование версии')
+    is_active = models.BooleanField(default=True, verbose_name='Версия активна')
+
+    def __str__(self):
+        return f'{self.product} version {self.number} {self.name}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
+        ordering = ('number',)
