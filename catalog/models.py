@@ -1,6 +1,8 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from config import settings
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -40,6 +42,8 @@ class Version(models.Model):
     number = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Номер версии')
     name = models.CharField(max_length=150, verbose_name='Наименование версии')
     is_active = models.BooleanField(default=True, verbose_name='Версия активна')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+                                   verbose_name='Кем создан', **NULLABLE)
 
     def __str__(self):
         return f'{self.product} version {self.number} {self.name}'
