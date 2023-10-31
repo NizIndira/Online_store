@@ -12,7 +12,9 @@
                 <img src="{{ object.image|mediapath }}" alt="Card image cap" class="img-thumbnail">
                 <h5 class="font-weight-normal">{{ object.description|slice:':150' }}</h5>
                 <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product' object.pk %}">Подробнее</a>
+                {% if user.is_authenticated %}
                 <a href="{% url 'catalog:update' object.pk %}">Редактировать</a>
+                {% endif %}
             </div>
         </div>
     </div>
