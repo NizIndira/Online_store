@@ -27,6 +27,8 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, **NULLABLE)
 
     def __str__(self):
         return f'{self.name}: {self.price}'
