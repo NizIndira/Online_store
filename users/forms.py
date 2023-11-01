@@ -5,14 +5,14 @@ from catalog.forms import StyleFormMixin
 from users.models import User
 
 
-class UserRegisterView(StyleFormMixin, UserCreationForm):
+class UserRegisterForm(StyleFormMixin, UserCreationForm):
 
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
 
 
-class UserProfileView(StyleFormMixin, UserChangeForm):
+class UserProfileForm(StyleFormMixin, UserChangeForm):
 
     class Meta:
         model = User
