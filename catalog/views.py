@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.shortcuts import reverse
@@ -49,9 +49,10 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.add_product'
     success_url = reverse_lazy('catalog:home')
 
     def form_valid(self, form):
@@ -102,11 +103,17 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
         form = super().get_form(form_class)
         if not self.request.user.groups.filter(name='Модератор').exists():
             form.fields['is_published'].widget = forms.HiddenInput()
+        if self.request.user.groups.filter(name='Модератор',).exists():
+            form.fields['name'].widget.attrs['disabled'] = True
+            form.fields['image'].widget.attrs['disabled'] = True
+            form.fields['price'].widget.attrs['disabled'] = True
+            form.fields['created_by'].widget.attrs['disabled'] = True
         return form
 
 
-class ProductDeleteView(UserPassesTestMixin, DeleteView):
+class ProductDeleteView(UserPassesTestMixin, PermissionRequiredMixin, DeleteView):
     model = Product
+    permission_required = 'catalog.delete_product'
 
     def get_success_url(self):
         product = self.get_object()
