@@ -8,11 +8,17 @@ from django import forms
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Category, Product, Version
+from catalog.services import get_categories_cache
 
 
 class CategoryListView(ListView):
     model = Category
     template_name = 'catalog/home.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['object_list'] = get_categories_cache()
+        return context_data
 
 
 def contacts(request):
